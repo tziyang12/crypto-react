@@ -7,12 +7,28 @@ function App() {
   const [currency, setCurrency] = useState([])
 
   useEffect(() => {
-    axios.get('https://openapiv1.coinstats.app/coins', {
-      headers: {
-        'X-API-KEY': 'MWIVYFTgOhSz6MU7Gh+sqmeQQBSTyiOOAshZW0Vkufc='
+    // Fetch data from API every 5 seconds
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://openapiv1.coinstats.app/coins', {
+          headers: {
+            'X-API-KEY': 'MWIVYFTgOhSz6MU7Gh+sqmeQQBSTyiOOAshZW0Vkufc='
+          }
+        });
+        setCurrency(response.data.result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    }).then(res => setCurrency(res.data.result))
-    .catch(error => console.log(error))
+    };
+
+    // Fetch data initially
+    fetchData();
+
+    // Fetch data every 5 seconds
+    const intervalId = setInterval(fetchData, 10000);
+
+    // Clean up interval
+    return () => clearInterval(intervalId);
   }, [])
 
   return (
@@ -34,7 +50,7 @@ function App() {
           {currency.filter((val) => {
               return val.name.toLowerCase().includes(search.toLowerCase())
           }).map((val) => {
-            return <tr>
+            return <tr key={val.id}>
               <td className="rank">{val.rank}</td>
               <td className="logo">
                 <a href={val.websiteUrl}>
