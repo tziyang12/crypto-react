@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('')
   const [currency, setCurrency] = useState([])
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(20);
   useEffect(() => {
     // Fetch data from API every 5 seconds
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://openapiv1.coinstats.app/coins', {
+        const response = await axios.get('https://openapiv1.coinstats.app/coins?limit=100', {
           headers: {
             'X-API-KEY': 'MWIVYFTgOhSz6MU7Gh+sqmeQQBSTyiOOAshZW0Vkufc='
           }
@@ -31,10 +32,22 @@ function App() {
     return () => clearInterval(intervalId);
   }, [])
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = currency
+    .filter((val) => val.name.toLowerCase().includes(search.toLowerCase()) || // Filter by val.name
+    val.symbol.toLowerCase().includes(search.toLowerCase()) // Filter by val.symbol
+  )
+    .slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="App">
-      <h2>Crypto Currency App</h2>
-      <input type="text" placeholder="Search..." onChange={e => setSearch(e.target.value)} />
+      <h2>Coin Tracker</h2>
+      <div className="search-container">
+        <input className="search-input" type="text" placeholder="Search..." onChange={e => setSearch(e.target.value)} />
+      </div>
       <table>
         <thead>
           <tr>
@@ -47,9 +60,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {currency.filter((val) => {
-              return val.name.toLowerCase().includes(search.toLowerCase())
-          }).map((val) => {
+          {currentItems.map((val) => {
             return <tr key={val.id}>
               <td className="rank">{val.rank}</td>
               <td className="logo">
@@ -67,6 +78,16 @@ function App() {
           }
         </tbody>
       </table>
+      {/* Pagination */}
+      <ul className="pagination">
+        {Array.from({ length: Math.ceil(currency.length / itemsPerPage) }, (_, i) => (
+          <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+            <button onClick={() => paginate(i + 1)} className="page-link">
+              {i + 1}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

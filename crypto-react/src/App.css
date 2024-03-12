@@ -73,7 +73,35 @@ thead tr th{
 }
 
 tbody>tr {
-  text-align: right;
+  text-align: center;
+}
+
+tbody tr td {
+  border-bottom: 1px solid #ccc; /* Add line below each cell */
+  padding: 7px;
+}
+
+.search-container {
+  background: #fff;
+  height: 30px;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+.search-container .search-input{
+  background: transparent;
+  border: none;
+  outline:none;
+  width: 300px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .rank {
@@ -90,8 +118,9 @@ tbody>tr {
 }
 
 .logo img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  padding-right: 10px;
 }
 
 .symbol {
