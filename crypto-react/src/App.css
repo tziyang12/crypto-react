@@ -62,6 +62,14 @@ table {
   border-spacing: 0 1em;
 }
 
+.TableHead {
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+}
+
+
+
 thead {
   background-color: rgb(44, 44, 44);
   color: white;
