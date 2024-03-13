@@ -12,8 +12,8 @@ const columns = [
   { id: 'symbol', label: 'Symbol', align: 'center', minWidth: 50 },
   { id: 'price', label: 'Price', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString("en-US")}` },
   { id: 'priceChange1d', label: 'Price Change', minWidth: 170, align: 'center', format: (value) => `${value.toFixed(2)}%` },
-  { id: 'marketCap', label: 'Market Cap', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString()}` },
-  { id: 'volume', label: 'Volume (24h)', minWidth: 170, align: 'center', format: (value) => `${value.toLocaleString()}` },
+  { id: 'marketCap', label: 'Market Cap', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
+  { id: 'volume', label: 'Volume (24h)', minWidth: 170, align: 'center', format: (value) => `${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
 ];
 
 function App() {
