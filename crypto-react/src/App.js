@@ -5,16 +5,6 @@ import TextField from '@mui/material/TextField';
 import Header from './Components/Header'; // Import the Header component
 import CoinTable from './Components/CoinTable'; // Import the Table component
 
-const columns = [
-  { id: 'rank', label: 'Rank', minWidth: 30, align: 'center' },
-  { id: 'icon', label: 'Icon', minWidth: 40, align: 'center'},
-  { id: 'name', label: 'Name', minWidth: 150 },
-  { id: 'symbol', label: 'Symbol', align: 'center', minWidth: 50 },
-  { id: 'price', label: 'Price', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString("en-US")}` },
-  { id: 'priceChange1d', label: 'Price Change', minWidth: 170, align: 'center', format: (value) => `${value.toFixed(2)}%` },
-  { id: 'marketCap', label: 'Market Cap', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-  { id: 'volume', label: 'Volume (24h)', minWidth: 170, align: 'center', format: (value) => `${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
-];
 
 function App() {
   const [search, setSearch] = useState('');
@@ -59,7 +49,7 @@ function App() {
           onChange={handleSearchChange}
         />
       </div>
-      <CoinTable columns={columns} data={filteredData} rowsPerPageOptions={[10, 25, 100]} />
+      <CoinTable data={filteredData} rowsPerPageOptions={[10, 25, 100]} />
     </div>
   );
 }

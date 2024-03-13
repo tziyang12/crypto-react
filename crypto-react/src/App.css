@@ -134,3 +134,9 @@ tbody tr td {
 .symbol {
   text-align: center;
 }
+
+@media (max-width: 600px) {
+  .hide-on-mobile {
+    display: none; /* Hide the columns on smaller screens */
+  }
+}
