@@ -1,15 +1,9 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
-import TablePagination from '@mui/material/TablePagination';
+import Header from './Components/Header'; // Import the Header component
+import CoinTable from './Components/CoinTable'; // Import the Table component
 
 const columns = [
   { id: 'rank', label: 'Rank', minWidth: 30, align: 'center' },
@@ -25,8 +19,6 @@ const columns = [
 function App() {
   const [search, setSearch] = useState('');
   const [currency, setCurrency] = useState([]);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,71 +40,26 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const indexOfLastItem = (page + 1) * rowsPerPage;
-  const indexOfFirstItem = page * rowsPerPage;
-  const currentItems = currency
-    .filter((val) => val.name.toLowerCase().includes(search.toLowerCase()) || val.symbol.toLowerCase().includes(search.toLowerCase()))
-    .slice(indexOfFirstItem, indexOfLastItem);
+  const filteredData = currency.filter((val) => 
+  val.name.toLowerCase().includes(search.toLowerCase()) || 
+  val.symbol.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="App">
-      <h2>Coin Tracker</h2>
+      <Header />
       <div className="search-container">
         <TextField
           className="search-input"
           label="Search..."
           variant="outlined"
-          onChange={e => setSearch(e.target.value)}
+          onChange={handleSearchChange}
         />
       </div>
-      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {currentItems.map((row) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {columns.map((column) => (
-                    <TableCell key={column.id} align={column.align}>
-                      {column.id === 'icon' ? (
-                        <img src={row[column.id]} alt="Icon" style={{ width: '40px', height: '40px' }} />
-                      ) : (
-                        column.format && typeof row[column.id] === 'number' ? column.format(row[column.id]) : row[column.id]
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 20, 50]}
-          component="div"
-          count={currency.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+      <CoinTable columns={columns} data={filteredData} rowsPerPageOptions={[10, 25, 100]} />
     </div>
   );
 }
