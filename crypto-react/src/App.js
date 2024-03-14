@@ -1,10 +1,11 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import TextField from '@mui/material/TextField';
 import Header from './Components/Header'; // Import the Header component
 import CoinTable from './Components/CoinTable'; // Import the Table component
-
+import FAQ from './Components/FAQ'; // Import the FAQ component
+import { Container, TextField } from '@mui/material';
+import Footer from './Components/Footer';
 
 function App() {
   const [search, setSearch] = useState('');
@@ -40,16 +41,22 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <div className="search-container">
-        <TextField
-          className="search-input"
-          label="Search..."
-          variant="outlined"
-          onChange={handleSearchChange}
-        />
-      </div>
-      <CoinTable data={filteredData} rowsPerPageOptions={[10, 25, 100]} />
+      <Container>
+        <Header />
+      </Container>
+      <Container id="ranking" style={{paddingTop: 100}}>
+        <div className="search-container">
+            <TextField
+              className="search-input"
+              label="Search..."
+              variant="outlined"
+              onChange={handleSearchChange}
+            />
+        </div>
+      </Container>
+        <CoinTable data={filteredData} rowsPerPageOptions={[10, 25, 100]} />
+        <FAQ/>
+        <Footer/>
     </div>
   );
 }

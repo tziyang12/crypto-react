@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -13,10 +8,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 const columns = [
     { id: 'rank', label: 'Rank', minWidth: 30, align: 'center' },
     { id: 'icon', label: 'Icon', minWidth: 40, align: 'center'},
-    { id: 'name', label: 'Name', minWidth: 150 },
-    { id: 'symbol', label: 'Symbol', align: 'center', minWidth: 50 },
-    { id: 'price', label: 'Price', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString("en-US")}` },
-    { id: 'priceChange1d', label: 'Price Change', minWidth: 170, align: 'center', format: (value) => `${value.toFixed(2)}%` },
+    { id: 'name', label: 'Name', minWidth: 60 },
+    { id: 'symbol', label: 'Symbol', align: 'center', minWidth: 30 },
+    { id: 'price', label: 'Price', minWidth: 100, align: 'center', format: (value) => `$${value.toLocaleString("en-US")}` },
+    { id: 'priceChange1d', label: 'Price Change', minWidth: 100, align: 'center', format: (value) => `${value.toFixed(2)}%` },
     { id: 'marketCap', label: 'Market Cap', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
     { id: 'volume', label: 'Volume (24h)', minWidth: 170, align: 'center', format: (value) => `${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
   ];
@@ -26,7 +21,7 @@ function CoinTable({ data, rowsPerPageOptions }) {
     
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
-  const isMobile = useMediaQuery('(max-width:900px)');
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -49,8 +44,8 @@ function CoinTable({ data, rowsPerPageOptions }) {
             <TableRow>
               {columns.map((column) => (
                 // Hide columns on smaller screens using isMobile variable
-                (isMobile && (column.id !== 'rank' && column.id !== 'icon' && column.id !== 'name' && column.id !== 'symbol' && column.id !== 'price' && column.id !== 'priceChange1d')) ? null :
-                <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                (isMobile && (column.id !== 'rank' && column.id !== 'name' && column.id !== 'symbol' && column.id !== 'price' && column.id !== 'priceChange1d')) ? null :
+                <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth, color: 'white', backgroundColor: 'black', fontStyle: 'bold' }}>
                   {column.label}
                 </TableCell>
               ))}
@@ -58,10 +53,10 @@ function CoinTable({ data, rowsPerPageOptions }) {
           </TableHead>
           <TableBody>
             {currentItems.map((row) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+              <TableRow hover role="checkbox" tabIndex={-1} key={row.id} style={{backgroundColor: 'black'}}>
                 {columns.map((column) => (
                     // Hide columns on smaller screens using isMobile variable
-                    (isMobile && (column.id !== 'rank' && column.id !== 'icon' && column.id !== 'name' && column.id !== 'symbol' && column.id !== 'price' && column.id !== 'priceChange1d')) ? null :
+                    (isMobile && (column.id !== 'rank' && column.id !== 'name' && column.id !== 'symbol' && column.id !== 'price' && column.id !== 'priceChange1d')) ? null :
                   <TableCell 
                     key={column.id} 
                     align={column.align} 
@@ -70,7 +65,7 @@ function CoinTable({ data, rowsPerPageOptions }) {
                         ? row[column.id] >= 0 
                         ? { color: 'green' } 
                         : { color: 'red' }
-                        : {} // Empty object for other cells
+                        : { color: 'white'} // Empty object for other cells
                     }>
                     {column.id === 'icon' ? (
                       <img src={row[column.id]} alt="Icon" style={{ width: '40px', height: '40px' }} />
@@ -92,6 +87,7 @@ function CoinTable({ data, rowsPerPageOptions }) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        style={{ color: 'white', backgroundColor: 'black' }}
       />
     </>
   );
