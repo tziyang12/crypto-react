@@ -76,7 +76,7 @@ function Header() {
                             px: 0,
                         }}
                         >
-                        <Typography variant="h6" component="div" style={{padding: '0 15px'}}>Lunar Watch</Typography>
+                        <Typography variant="h6" component="div" style={{padding: '0 15px 0 25px'}}>Lunar Watch</Typography>
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <MenuItem
                             onClick={() => scrollToSection('home')}
@@ -107,7 +107,7 @@ function Header() {
                             sx={{ py: '6px', px: '12px' }}
                             >
                             <Typography variant="body2" color="text.primary">
-                                FAQ
+                                Join Us
                             </Typography>
                             </MenuItem>
                         </Box>
@@ -150,7 +150,9 @@ function Header() {
                             <MenuItem onClick={() => scrollToSection('feedback')}>
                                 Feedback
                             </MenuItem>
-                            <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                            <MenuItem onClick={() => scrollToSection('faq')}>
+                                Join Us
+                            </MenuItem>
                             
                             </Box>
                         </Drawer>

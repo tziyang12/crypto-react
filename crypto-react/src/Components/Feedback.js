@@ -25,34 +25,41 @@ function Feedback() {
 
   return (
     <Container id='feedback' style={{textAlign: 'center'}}>
-        <Typography variant='h1' style={{
+        <Typography variant='h4' style={{
         display: 'block',
         margin: '0 auto',
         paddingBottom: '10px',
-        fontSize: '4vw',
+        fontSize: '3vw',
         fontWeight: 'bold',
         color: 'white',
       }}>
         Feedback
       </Typography>
-        <Paper style={{ padding: '20px', backgroundColor: 'white' }}>
-            <TextField
-                multiline
-                rows={4}
-                variant="outlined"
-                label="Enter your feedback"
-                fullWidth
-                value={feedback}
-                onChange={handleFeedbackChange}
-            />
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                style={{ marginTop: '10px' }}
-            >
-                Submit Feedback
-            </Button>
+        <Paper style={{ padding: '20px', backgroundColor: 'black' }}>
+            <Container sx={{borderRadius: 20, padding: 0}}>
+                <TextField
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    label="Enter your feedback"
+                    fullWidth
+                    value={feedback}
+                    onChange={handleFeedbackChange}
+                    sx={{
+                        "& fieldset": { border: 'none' }, 
+                        '& .MuiInputLabel-shrink': { opacity: 0, transition: "all 0.2s ease-in" },
+                        backgroundColor: 'white'
+                    }}
+                />
+                <Button
+                    variant="contained"
+                    backgroundImage= 'linear-gradient(25deg, #2600fc, #ff00ea)'
+                    onClick={handleSubmit}
+                    style={{ marginTop: '40px' , background: 'linear-gradient(25deg, #2600fc, #ff00ea)', height: '60px', width: '220px', borderRadius: '40px', fontWeight: 'bold' }}
+                >
+                    Submit Feedback
+                </Button>
+            </Container>
         </Paper>
         <Snackbar
             open={notificationOpen}

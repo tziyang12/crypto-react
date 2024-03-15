@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './Components/Header'; // Import the Header component
 import CoinTable from './Components/CoinTable'; // Import the Table component
-import FAQ from './Components/FAQ'; // Import the FAQ component
+import Join from './Components/Join'; // Import the FAQ component
 import { Container, TextField, Typography } from '@mui/material';
 import Footer from './Components/Footer';
 import Feedback from './Components/Feedback';
@@ -54,7 +54,7 @@ function App() {
           color: 'white', 
           fontSize: '3vw',
           fontWeight: 'bold', 
-          paddingBottom: '20px'
+          paddingBottom: '30px'
         }}>
           Top 100 Cryptocurrencies
         </Typography>
@@ -75,7 +75,7 @@ function App() {
         <CoinTable data={filteredData} rowsPerPageOptions={[10, 25, 100]} />
       </Container>
       <Feedback/>
-      <FAQ/>
+      <Join/>
       <Footer/>
     </div>
   );
