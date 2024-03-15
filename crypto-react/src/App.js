@@ -4,10 +4,13 @@ import axios from 'axios';
 import Header from './Components/Header'; // Import the Header component
 import CoinTable from './Components/CoinTable'; // Import the Table component
 import FAQ from './Components/FAQ'; // Import the FAQ component
-import { Container, TextField } from '@mui/material';
+import { Container, TextField, Typography } from '@mui/material';
 import Footer from './Components/Footer';
+import Feedback from './Components/Feedback';
+import Home from './Components/Home';
 
 function App() {
+  
   const [search, setSearch] = useState('');
   const [currency, setCurrency] = useState([]);
 
@@ -44,19 +47,36 @@ function App() {
       <Container>
         <Header />
       </Container>
-      <Container id="ranking" style={{paddingTop: 100}}>
+      <Home/>
+      <Container id="ranking" style={{paddingTop: 40, paddingBottom: 40}}>
+        <Typography variant="h1" 
+          style={{ textAlign: 'center', 
+          color: 'white', 
+          fontSize: '3vw',
+          fontWeight: 'bold', 
+          paddingBottom: '20px'
+        }}>
+          Top 100 Cryptocurrencies
+        </Typography>
         <div className="search-container">
             <TextField
-              className="search-input"
-              label="Search..."
+              sx={{
+                "& fieldset": { border: 'none' }, 
+                '& .MuiInputLabel-shrink': { opacity: 0, transition: "all 0.2s ease-in" } 
+              }}
+              className={`search-input`}
+              label="Search Crypto Name/Symbol..."
               variant="outlined"
               onChange={handleSearchChange}
             />
         </div>
       </Container>
+      <Container>
         <CoinTable data={filteredData} rowsPerPageOptions={[10, 25, 100]} />
-        <FAQ/>
-        <Footer/>
+      </Container>
+      <Feedback/>
+      <FAQ/>
+      <Footer/>
     </div>
   );
 }

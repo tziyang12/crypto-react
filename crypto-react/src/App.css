@@ -92,7 +92,7 @@ tbody tr td {
   border-radius: 30px;
   padding: 10px 20px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
               -4px -4px 6px 0 rgba(116, 125, 136, .2), 
@@ -103,8 +103,8 @@ tbody tr td {
 .search-container .search-input{
   background: transparent;
   border: none;
-  outline:none;
-  width: 300px;
+  outline: none;
+  width: 100%;
   font-weight: 500;
   font-size: 16px;
 }
@@ -135,5 +135,19 @@ tbody tr td {
 @media (max-width: 600px) {
   .hide-on-mobile {
     display: none; /* Hide the columns on smaller screens */
+  }
+}
+
+.floating-image {
+  width: 100%;
+  animation: floatAnimation 1s infinite alternate; /* Animation name, duration, and iteration */
+}
+
+@keyframes floatAnimation {
+  from {
+    transform: translateY(0); /* Starting position */
+  }
+  to {
+    transform: translateY(-10px); /* Ending position */
   }
 }

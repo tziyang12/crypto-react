@@ -76,10 +76,10 @@ function Header() {
                             px: 0,
                         }}
                         >
-                        <Typography variant="h6" component="div" style={{padding: '0 15px'}}>CoinCheck</Typography>
+                        <Typography variant="h6" component="div" style={{padding: '0 15px'}}>Lunar Watch</Typography>
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <MenuItem
-                            onClick={() => scrollToSection('features')}
+                            onClick={() => scrollToSection('home')}
                             sx={{ py: '6px', px: '12px' }}
                             >
                             <Typography variant="body2" color="text.primary">
@@ -95,15 +95,7 @@ function Header() {
                             </Typography>
                             </MenuItem>
                             <MenuItem
-                            onClick={() => scrollToSection('highlights')}
-                            sx={{ py: '6px', px: '12px' }}
-                            >
-                            <Typography variant="body2" color="text.primary">
-                                Join
-                            </Typography>
-                            </MenuItem>
-                            <MenuItem
-                            onClick={() => scrollToSection('pricing')}
+                            onClick={() => scrollToSection('feedback')}
                             sx={{ py: '6px', px: '12px' }}
                             >
                             <Typography variant="body2" color="text.primary">
@@ -149,16 +141,13 @@ function Header() {
                                 }}
                             >
                             </Box>
-                            <MenuItem onClick={() => scrollToSection('features')}>
+                            <MenuItem onClick={() => scrollToSection('home')}>
                                 Home
                             </MenuItem>
                             <MenuItem onClick={() => scrollToSection('ranking')}>
                                 Market
                             </MenuItem>
-                            <MenuItem onClick={() => scrollToSection('highlights')}>
-                                Join
-                            </MenuItem>
-                            <MenuItem onClick={() => scrollToSection('pricing')}>
+                            <MenuItem onClick={() => scrollToSection('feedback')}>
                                 Feedback
                             </MenuItem>
                             <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>

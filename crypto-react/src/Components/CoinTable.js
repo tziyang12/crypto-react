@@ -4,14 +4,18 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+//Use specific font for the table
+const font = {
+   fontFamily: 'Noto Sans',
+}
 
 const columns = [
     { id: 'rank', label: 'Rank', minWidth: 30, align: 'center' },
     { id: 'icon', label: 'Icon', minWidth: 40, align: 'center'},
-    { id: 'name', label: 'Name', minWidth: 60 },
+    { id: 'name', label: 'Name', minWidth: 60, align: 'center' },
     { id: 'symbol', label: 'Symbol', align: 'center', minWidth: 30 },
-    { id: 'price', label: 'Price', minWidth: 100, align: 'center', format: (value) => `$${value.toLocaleString("en-US")}` },
-    { id: 'priceChange1d', label: 'Price Change', minWidth: 100, align: 'center', format: (value) => `${value.toFixed(2)}%` },
+    { id: 'price', label: 'Price', minWidth: 70, align: 'center', format: (value) => `$${value.toLocaleString("en-US")}` },
+    { id: 'priceChange1d', label: '24H Change', minWidth: 70, align: 'center', format: (value) => `${value.toFixed(2)}%` },
     { id: 'marketCap', label: 'Market Cap', minWidth: 170, align: 'center', format: (value) => `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
     { id: 'volume', label: 'Volume (24h)', minWidth: 170, align: 'center', format: (value) => `${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}` },
   ];
@@ -21,7 +25,7 @@ function CoinTable({ data, rowsPerPageOptions }) {
     
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery('(max-width:700px)');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -45,7 +49,7 @@ function CoinTable({ data, rowsPerPageOptions }) {
               {columns.map((column) => (
                 // Hide columns on smaller screens using isMobile variable
                 (isMobile && (column.id !== 'rank' && column.id !== 'name' && column.id !== 'symbol' && column.id !== 'price' && column.id !== 'priceChange1d')) ? null :
-                <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth, color: 'white', backgroundColor: 'black', fontStyle: 'bold' }}>
+                <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth, color: 'white', backgroundColor: 'black', fontStyle: 'bold' , ...font}}>
                   {column.label}
                 </TableCell>
               ))}
@@ -63,9 +67,9 @@ function CoinTable({ data, rowsPerPageOptions }) {
                     style={
                         column.id === 'priceChange1d' 
                         ? row[column.id] >= 0 
-                        ? { color: 'green' } 
-                        : { color: 'red' }
-                        : { color: 'white'} // Empty object for other cells
+                        ? { color: 'green', ...font } 
+                        : { color: 'red', ...font }
+                        : { color: 'white', ...font } // Empty object for other cells
                     }>
                     {column.id === 'icon' ? (
                       <img src={row[column.id]} alt="Icon" style={{ width: '40px', height: '40px' }} />
@@ -79,16 +83,16 @@ function CoinTable({ data, rowsPerPageOptions }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={rowsPerPageOptions}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        style={{ color: 'white', backgroundColor: 'black' }}
-      />
+        <TablePagination
+            rowsPerPageOptions={rowsPerPageOptions}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            style={{ color: 'white', backgroundColor: 'transparent' }}
+        />
     </>
   );
 }
