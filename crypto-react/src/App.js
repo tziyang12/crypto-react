@@ -18,7 +18,6 @@ function App() {
   useEffect(() => {
     
     const API_KEY = process.env.REACT_APP_COIN_API;
-    console.log(process.env.REACT_APP_COIN_API);
     const fetchData = async () => {
       try {
         const response = await axios.get('https://openapiv1.coinstats.app/coins?limit=100', {
