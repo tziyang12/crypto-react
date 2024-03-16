@@ -9,21 +9,21 @@ import Footer from './Components/Footer';
 import Feedback from './Components/Feedback';
 import Home from './Components/Home';
 
-//Allow usage of API key taken from Vercel's environment variable called COIN_API
-
-const API_KEY = process.env.COIN_API;
-
 function App() {
   
   const [search, setSearch] = useState('');
   const [currency, setCurrency] = useState([]);
 
+
   useEffect(() => {
+    
+    const API_KEY = process.env.REACT_APP_COIN_API;
+
     const fetchData = async () => {
       try {
         const response = await axios.get('https://openapiv1.coinstats.app/coins?limit=100', {
           headers: {
-            'X-API-KEY': {API_KEY}
+            'X-API-KEY': API_KEY
           }
         });
         setCurrency(response.data.result);
